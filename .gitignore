@@ -1,0 +1,9 @@
+#Idea
+.idea/
+*.iml
+out/
+target/
+#ppt
+*.ppt
+data/
+*.log
