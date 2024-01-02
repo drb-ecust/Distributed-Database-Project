@@ -1,7 +1,7 @@
 @echo off
 
 
-@REM Test ClientDeadlock
+@REM Test ClientDeadlock_WWWW
 @REM default java version using JDK 1.8
 
 @REM step 0: Set Params
@@ -27,6 +27,5 @@ start "WC" /min java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% datab
 @REM step 5: run ClientDeadlock
 @REM wait some time to make sure rms, tm and wc have enough time to start up
 timeout /t 5 /nobreak >nul
-start "Client-Deadlock" java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.client.ClientDeadlock
-@REM start "Client-Deadlock" java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.client.ClientDeadlock_WWWW
+start "Client-Deadlock" java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.client.ClientDeadlock_WWWW
 
