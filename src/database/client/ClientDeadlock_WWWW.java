@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class ClientDeadlock_WWWW {
     public static void main(String[] args) {
-        System.out.println("#################### Begin Test ClientDeadlock ####################");
+        System.out.println("#################### Begin Test ClientDeadlock_WWWW ####################");
 
         //////////
         // Read config and get wc.port
@@ -141,7 +141,7 @@ public class ClientDeadlock_WWWW {
             System.exit(1);
         }
 
-        System.out.println("#################### Finish Test ClientDeadlock ####################");
+        System.out.println("#################### Finish Test ClientDeadlock_WWWW ####################");
 
 
         CloseUtils.close();

@@ -1,7 +1,7 @@
 @echo off
 
 
-@REM Test ClientDieRMAfterEnlist
+@REM Test ClientDie2RM
 @REM default java version using JDK 1.8
 
 @REM step 0: Set Params
@@ -28,17 +28,21 @@ start "WC" /min java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% datab
 @REM wait some time to make sure rms, tm and wc have enough time to start up
 timeout /t 5 /nobreak >nul
 @REM start "Client-Die-RM-After-Enlist" java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.client.ClientDieRMAfterEnlist
-start "Client-Die-Mix" java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.client.ClientDieMix
+
+
+start "ClientDie2RM" java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.client.ClientDie2RM
+
+
 @REM step 6: recover RM Flight
 @REM wait some time to make sure rm already die after enlist
 timeout /t 5 /nobreak >nul
 @REM start "RMI-REGISTRY-Recovered" /min rmiregistry -J-classpath -J%CLASS_PATH% %RMI_REGISTRY_PORT%
 @REM start "TM-Recovered" /min java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.transaction.TransactionManagerImpl
-start "Car-RM-Recovered" /min java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.resource.CarResourceManager
-@REM start "Flight-RM-Recovered" /min java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.resource.FlightResourceManager
+@REM start "Car-RM-Recovered" /min java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.rm.CarResourceManager
+start "Flight-RM-Recovered" /min java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.resource.FlightResourceManager
 start "Hotel-RM-Recovered" /min java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.resource.HotelResourceManager
-@REM start "Customer-RM-Recovered" /min java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.resource.CustomerResourceManager
-@REM start "Reservation-RM-Recovered" /min java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.resource.ReservationResourceManager
+@REM start "Customer-RM-Recovered" /min java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.rm.CustomerResourceManager
+@REM start "Reservation-RM-Recovered" /min java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.rm.ReservationResourceManager
 @REM
 @REM @REM step 4: Start WC
 @REM start "WC-Recovered" /min java -classpath %CLASS_PATH% -DrmiPort=%RMI_REGISTRY_PORT% database.workflow.WorkflowControllerImpl

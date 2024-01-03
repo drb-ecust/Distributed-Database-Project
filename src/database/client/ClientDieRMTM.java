@@ -11,11 +11,11 @@ import java.rmi.Naming;
 import java.util.Properties;
 
 /**
- * Client code for test the case when RM die after prepare enlist
+ * Client code for test the case when RM die and TM die
  */
 public class ClientDieRMTM {
     public static void main(String[] args) {
-        System.out.println("#################### Begin Test ClientDieRMAfterEnlist ####################");
+        System.out.println("#################### Begin Test ClientDieRMAndTM ####################");
 
         //////////
         // Read config and get wc.port
@@ -115,13 +115,11 @@ public class ClientDieRMTM {
 
 
             //////////
-            // new transaction 4: reserve Flight, Car and Room, but RM will die after enlist
+            // new transaction 4: reserve Flight, Car and Room, but RM will die after prepare
             //////////
             xid = wc.start();
             System.out.printf("### Start Transaction xid=%d: reserve Flight, Car and Room, but RM will die after enlist.\n", xid);
-//            wc.dieRMBeforeAbort(ResourceManager.RMI_NAME_RM_HOTEL); // set a flag and info Hotel RM to die after the next enlist
-//            wc.dieRMAfterEnlist(ResourceManager.RMI_NAME_RM_CARS);
-//            wc.dieRMAfterEnlist(ResourceManager.RMI_NAME_RM_FLIGHTS);
+
             wc.dieRMAfterPrepare(ResourceManager.RMI_NAME_RM_FLIGHTS);
             wc.dieTMBeforeCommit();
             if (!wc.reserveFlight(xid, "Tom", "1001")) {
@@ -156,14 +154,9 @@ public class ClientDieRMTM {
             } catch (Exception ignored) {
             }
 
-//            // catch hotelsRM die
-//            try{
-//                wc.abort(xid);
-//                System.out.printf("### Abort Transaction xid=%d: success! If RM die before abort, it will redo abort after recover, the consistency is still guaranteed.\n", xid);
-//            }catch (Exception e){
-//                e.printStackTrace();
-//                System.exit(1);
-//            }
+            //////////
+            // new transaction 5: new transaction 4: reserve Flight, Car and Room, but TM will die after enlist
+            //////////
             xid = wc.start();
             if (!wc.reserveFlight(xid, "Tom", "1001")) {
                 System.out.println("Reserve Flight failed");
@@ -186,7 +179,7 @@ public class ClientDieRMTM {
             }
 
             //////////
-            // new transaction 5: check consistency after processing RM die
+            // new transaction 6: check consistency after processing TM die
             //////////
             // wait until rm recover
             while (!wc.reconnect()) {
@@ -225,7 +218,7 @@ public class ClientDieRMTM {
             System.exit(1);
         }
 
-        System.out.println("#################### Finish Test ClientDieRMAfterEnlist ####################");
+        System.out.println("#################### Finish Test ClientDieRMAndTM ####################");
 
 
         CloseUtils.close();

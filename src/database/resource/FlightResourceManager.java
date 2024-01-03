@@ -1,6 +1,7 @@
 package database.resource;
 
 import database.entity.Flight;
+import database.utils.PropUtil;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,14 +22,7 @@ public class FlightResourceManager extends ResourceManagerImpl<Flight> {
     public static void main(String[] args) {
         myRMIName = RMI_NAME_RM_FLIGHTS;
 
-        Properties prop = new Properties();
-        try {
-            prop.load(Files.newInputStream(Paths.get("conf/ddb.conf")));
-        } catch (Exception e1) {
-            e1.printStackTrace();
-            return;
-        }
-        String rmiPort = prop.getProperty(myRMIName + ".port");
+        String rmiPort = PropUtil.getRmiPort(myRMIName);
         try {
             _rmiRegistry = LocateRegistry.createRegistry(Integer.parseInt(rmiPort));
         } catch (RemoteException e2) {

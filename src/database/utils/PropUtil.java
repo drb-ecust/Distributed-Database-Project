@@ -14,7 +14,7 @@ public class PropUtil {
             e.printStackTrace();
             System.exit(1);
         }
-        String rmiPort = prop.getProperty("tm.port");
+        String rmiPort = prop.getProperty(type + ".port");
         return rmiPort;
 
     }

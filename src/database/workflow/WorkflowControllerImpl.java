@@ -7,6 +7,7 @@ import database.exception.InvalidTransactionException;
 import database.exception.TransactionAbortedException;
 import database.resource.ResourceManager;
 import database.transaction.TransactionManager;
+import database.utils.PropUtil;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -53,15 +54,8 @@ public class WorkflowControllerImpl extends java.rmi.server.UnicastRemoteObject 
 
 
     public static void main(String[] args) {
-        Properties prop = new Properties();
-        try {
-            prop.load(Files.newInputStream(Paths.get("conf/ddb.conf")));
-        } catch (Exception e1) {
-            System.out.println("WC fail to load configuration file!");
-            e1.printStackTrace();
-            System.exit(1);
-        }
-        String rmiPort = prop.getProperty("wc.port");
+
+        String rmiPort = PropUtil.getRmiPort("wc");
         try {
             _rmiRegistry = LocateRegistry.createRegistry(Integer.parseInt(rmiPort));
         } catch (RemoteException e2) {

@@ -109,7 +109,7 @@ public class ClientDeadlock_WRWR {
             //////////
             Transaction1 f1 = new Transaction1(wc);
             //////////
-            // new transaction 5: require R-Lock on Flight and X-Lock on Car, will cause deadlock when executing with f1
+            // new transaction 5: require  X-Lock on Car and R-Lock on Flight, will cause deadlock when executing with f1
             //////////
             Transaction2 f2 = new Transaction2(wc);
             f1.start();
@@ -141,7 +141,7 @@ public class ClientDeadlock_WRWR {
             System.exit(1);
         }
 
-        System.out.println("#################### Finish Test ClientDeadlock ####################");
+        System.out.println("#################### Finish Test ClientDeadlock_WRWR ####################");
 
         CloseUtils.close();
         System.exit(0);

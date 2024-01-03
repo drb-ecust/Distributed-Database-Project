@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-@REM Test ClientDieTMBeforeCommit
-@REM default java version using JDK 1.8
+# Test ClientDieTMBeforeCommit
+# default java version using JDK 1.8
 
 # step 0: Set Params
 CLASS_PATH="./target/classes"

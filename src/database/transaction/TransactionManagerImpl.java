@@ -67,17 +67,9 @@ public class TransactionManagerImpl extends java.rmi.server.UnicastRemoteObject 
 
 
     public static void main(String[] args) {
-//        Properties prop = new Properties();
-//        try {
-//            prop.load(Files.newInputStream(Paths.get("conf/ddb.conf")));
-//        } catch (Exception e) {
-//            System.out.println("TM fail to load configuration file!");
-//            e.printStackTrace();
-//            System.exit(1);
-//        }
-//        String rmiPort = prop.getProperty("tm.port");
+
         String rmiPort = PropUtil.getRmiPort("tm");
-        System.out.println(rmiPort);
+
         try {
             _rmiRegistry = LocateRegistry.createRegistry(Integer.parseInt(rmiPort));
         } catch (RemoteException e) {
